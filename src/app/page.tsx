@@ -13,7 +13,7 @@ export default function Home() {
             />
             <div className="bg-white rounded-lg py-7 px-8 shadow-md xl:w-100 border-5 border-blue-700 flex flex-col items-center">
                 <span className="text-3xl font-bold mb-4 text-center text-gray-800">
-                    Cari Aja Kuy
+                    Cari Aja Quy
                 </span>
                 <Search />
             </div>
