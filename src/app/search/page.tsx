@@ -60,7 +60,7 @@ export default function SearchResult() {
                                 key={"result-file" + index}
                             >
                                 <Link
-                                    href={file.url.toString()}
+                                    href={`/documents?filename=${encodeURIComponent(file.filename.toString())}`}
                                     className="text-xl font-semibold text-blue-700 cursor-pointer hover:underline "
                                 >
                                     {file.filename}
