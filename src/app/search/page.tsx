@@ -5,7 +5,6 @@ import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-
 type FileResult = {
     filename: String;
     consine_similarity: number;
@@ -48,7 +47,7 @@ export default function SearchResult() {
                             height={40}
                         />
                     </Link>
-                    <Search />
+                    <Search q={query} />
                 </div>
                 <span className="">
                     Search Results <span className="italic">{query}</span>
@@ -67,17 +66,25 @@ export default function SearchResult() {
                                     {file.filename}
                                 </Link>
                                 <div className="flex flex-col text-gray-600">
-                                    <span className="">
-                                        {file.snippet}
+                                    <span className="">{file.snippet}</span>
+                                    <span className="font-semibold text-sm">
+                                        Cosine Similarity:{" "}
+                                        <span className="italic">
+                                            {file.consine_similarity}
+                                        </span>
                                     </span>
-                                    <span className="font-semibold text-sm">Cosine Similarity: <span className="italic">{file.consine_similarity}</span></span>
                                 </div>
                             </div>
                         ))}
                     </div>
                 ) : (
-                    "Loading..."
+                    <p className="text-3xl">Loading...</p>
                 )}
+                {data?.documents.length === 0 ? (
+                    <span className="text-2xl">
+                        Documents not found...
+                    </span>
+                ) : null}
             </div>
         );
     } else {
