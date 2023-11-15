@@ -1,3 +1,4 @@
+'use client'
 import HomePage from "./homepage/Homepage";
 import SearchResult from "./searchpage/page";
 

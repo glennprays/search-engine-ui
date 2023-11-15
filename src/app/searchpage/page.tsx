@@ -1,3 +1,4 @@
+'use client'
 import Search from "@/components/search/searchEngine";
 import Image from 'next/image';
 import logo from '../../../public/images/SearchLogo.png';
@@ -29,3 +30,5 @@ export default function SearchResult() {
     </div>
   );
 }
+
+

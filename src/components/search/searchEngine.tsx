@@ -1,3 +1,4 @@
+'use client'
 export default function searchEngine() {
     return(
         <div className="mb-4 flex w-full flex-wrap items-stretch"> 
@@ -11,4 +12,4 @@ export default function searchEngine() {
             </a>
         </div>
     )
-}
+}   
