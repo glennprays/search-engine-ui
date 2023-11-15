@@ -3,20 +3,38 @@ import Search from "@/components/search/searchEngine";
 import Image from "next/image";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
-const SearchResults = [
-    { id: 1, title: "Glennn si sepuh", description: "Description" },
-    { id: 2, title: "Jojo si kampret", description: "Description" },
-    { id: 3, title: "Jimmy si eek", description: "Description" },
-    { id: 4, title: "Kepin si cina", description: "Description" },
-    { id: 5, title: "Mike cakep", description: "Description" },
-];
+
+type FileResult = {
+    filename: String;
+    consine_similarity: number;
+    url: String;
+    snippet: String;
+};
+
+type QueryResult = {
+    documents: FileResult[];
+    query: String;
+};
 
 export default function SearchResult() {
     const searchParams = useSearchParams();
     const query = searchParams.get("q");
 
     const router = useRouter();
+
+    const [data, setData] = useState<QueryResult | undefined>();
+
+    async function querySearch() {
+        const res = await fetch(`/api/search?q=${query?.replace(/ /g, "+")}`);
+        const data: QueryResult = await res.json();
+        setData(data);
+    }
+
+    useEffect(() => {
+        querySearch();
+    }, [query]);
 
     if (query) {
         return (
@@ -35,21 +53,31 @@ export default function SearchResult() {
                 <span className="">
                     Search Results <span className="italic">{query}</span>
                 </span>
-                <div className="mt-7 flex flex-col gap-4">
-                    {SearchResults.map((result) => (
-                        <div className="w-fit flex flex-col" key={result.id}>
-                            <Link
-                                href={`/result/${result.id}`}
-                                className="text-xl font-semibold text-blue-700 cursor-pointer hover:underline "
+                {data ? (
+                    <div className="mt-7 flex flex-col gap-4 max-w-[600px]">
+                        {data.documents.map((file, index) => (
+                            <div
+                                className="w-fit flex flex-col"
+                                key={"result-file" + index}
                             >
-                                {result.title}
-                            </Link>
-                            <span className="text-gray-600">
-                                {result.description}
-                            </span>
-                        </div>
-                    ))}
-                </div>
+                                <Link
+                                    href={file.url.toString()}
+                                    className="text-xl font-semibold text-blue-700 cursor-pointer hover:underline "
+                                >
+                                    {file.filename}
+                                </Link>
+                                <div className="flex flex-col text-gray-600">
+                                    <span className="">
+                                        {file.snippet}
+                                    </span>
+                                    <span className="font-semibold text-sm">Cosine Similarity: <span className="italic">{file.consine_similarity}</span></span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    "Loading..."
+                )}
             </div>
         );
     } else {
