@@ -1,5 +1,5 @@
 "use client";
-import Search from "@/components/search/searchEngine";
+import Search from "@/components/search/SearchEngine";
 import Image from "next/image";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";

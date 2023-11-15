@@ -3,7 +3,7 @@ import { useState, KeyboardEvent } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 
-export default function searchEngine({ q }: { q?: string | number | readonly string[] | undefined}) {
+export default function SearchEngine({ q }: { q?: string | number | readonly string[] | undefined}) {
     const [query, setQuery] = useState<
         string | number | readonly string[] | undefined
     >(q);

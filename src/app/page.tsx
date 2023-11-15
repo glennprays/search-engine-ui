@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import Search from "@/components/search/searchEngine";
+import Search from "@/components/search/SearchEngine";
 
 export default function Home() {
     return (
